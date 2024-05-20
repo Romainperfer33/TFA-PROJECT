@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tfaproject/pages/first_page.dart';
 import 'package:tfaproject/pages/qr_view.dart';
+import 'package:tfaproject/pages/music_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
         home: FirstPage(),
         routes: {
           '/qrview': (context) => const QrView(),
+          '/music': (context) => const MusicView(),
         });
   }
 }
