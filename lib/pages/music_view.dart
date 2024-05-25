@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:vibration/vibration.dart';
 
 class MusicView extends StatefulWidget {
   const MusicView({Key? key}) : super(key: key);
@@ -12,6 +13,8 @@ class MusicView extends StatefulWidget {
 
 class _MusicViewState extends State<MusicView> {
   late AudioPlayer _audioPlayer;
+  Timer? _vibrationTimer;
+  final int _tempo = 140;
 
   @override
   void initState() {
@@ -22,15 +25,23 @@ class _MusicViewState extends State<MusicView> {
   Future<void> _playMusic() async {
     await _audioPlayer.setSource(AssetSource('theme.mp3'));
     _audioPlayer.resume();
+
+    int interval = (60000 / _tempo).round();
+
+    _vibrationTimer = Timer.periodic(Duration(milliseconds: interval), (timer) {
+      Vibration.vibrate(duration: 50);
+    });
   }
 
   Future<void> _pauseMusic() async {
     _audioPlayer.pause();
+    _vibrationTimer?.cancel();
   }
 
   @override
   void dispose() {
     _audioPlayer.dispose();
+    _vibrationTimer?.cancel();
     super.dispose();
   }
 
@@ -55,14 +66,20 @@ class _MusicViewState extends State<MusicView> {
             children: [
               ElevatedButton.icon(
                 onPressed: _playMusic,
-                icon: const Icon(Icons.play_arrow),
-                label: const Text("Play"),
+                icon: const Icon(Icons.play_arrow, color: Colors.black),
+                label: const Text(
+                  "Play",
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
               const SizedBox(height: 20),
               ElevatedButton.icon(
                 onPressed: _pauseMusic,
-                icon: const Icon(Icons.pause),
-                label: const Text("Pause"),
+                icon: const Icon(Icons.pause, color: Colors.black),
+                label: const Text(
+                  "Pause",
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
             ],
           ),
