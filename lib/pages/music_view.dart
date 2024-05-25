@@ -38,6 +38,18 @@ class _MusicViewState extends State<MusicView> {
     _vibrationTimer?.cancel();
   }
 
+  Future<void> _rewindMusic() async {
+    await _audioPlayer.seek(Duration.zero);
+    _audioPlayer.resume();
+
+    int interval = (60000 / _tempo).round();
+
+    _vibrationTimer?.cancel();
+    _vibrationTimer = Timer.periodic(Duration(milliseconds: interval), (timer) {
+      Vibration.vibrate(duration: 50);
+    });
+  }
+
   @override
   void dispose() {
     _audioPlayer.dispose();
@@ -78,6 +90,15 @@ class _MusicViewState extends State<MusicView> {
                 icon: const Icon(Icons.pause, color: Colors.black),
                 label: const Text(
                   "Pause",
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton.icon(
+                onPressed: _rewindMusic,
+                icon: const Icon(Icons.replay, color: Colors.black),
+                label: const Text(
+                  "Rewind",
                   style: TextStyle(color: Colors.black),
                 ),
               ),
