@@ -26,6 +26,18 @@ class _QrViewState extends State<QrView> {
     setState(() {
       _scanBarcodeResult = barcodesScanRes;
     });
+    if (barcodesScanRes != '-1') {
+      switch (barcodesScanRes) {
+        case 'music':
+          Navigator.pushNamed(context, '/music');
+          break;
+        default:
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('QR code inconnu: $barcodesScanRes')),
+          );
+          break;
+      }
+    }
   }
 
   @override
