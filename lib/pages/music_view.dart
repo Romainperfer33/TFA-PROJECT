@@ -73,7 +73,7 @@ class _MusicViewState extends State<MusicView> {
       ),
       body: SafeArea(
         child: Center(
-          child: Column(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton.icon(
@@ -84,7 +84,7 @@ class _MusicViewState extends State<MusicView> {
                   style: TextStyle(color: Colors.black),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(width: 20),
               ElevatedButton.icon(
                 onPressed: _pauseMusic,
                 icon: const Icon(Icons.pause, color: Colors.black),
@@ -93,7 +93,7 @@ class _MusicViewState extends State<MusicView> {
                   style: TextStyle(color: Colors.black),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(width: 20),
               ElevatedButton.icon(
                 onPressed: _rewindMusic,
                 icon: const Icon(Icons.replay, color: Colors.black),
