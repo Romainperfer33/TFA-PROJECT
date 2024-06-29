@@ -14,7 +14,7 @@ class MusicView extends StatefulWidget {
 class _MusicViewState extends State<MusicView> {
   late AudioPlayer _audioPlayer;
   Timer? _vibrationTimer;
-  final int _tempo = 140;
+  final int _tempo = 138;
 
   @override
   void initState() {
@@ -26,10 +26,11 @@ class _MusicViewState extends State<MusicView> {
     await _audioPlayer.setSource(AssetSource('theme.mp3'));
     _audioPlayer.resume();
 
-    int interval = (60000 / _tempo).round();
+    int millisecondsPerBeat = (60000 / _tempo).round();
 
-    _vibrationTimer = Timer.periodic(Duration(milliseconds: interval), (timer) {
-      Vibration.vibrate(duration: 50);
+    _vibrationTimer =
+        Timer.periodic(Duration(milliseconds: millisecondsPerBeat), (timer) {
+      Vibration.vibrate(duration: 200);
     });
   }
 
@@ -42,11 +43,12 @@ class _MusicViewState extends State<MusicView> {
     await _audioPlayer.seek(Duration.zero);
     _audioPlayer.resume();
 
-    int interval = (60000 / _tempo).round();
+    int millisecondsPerBeat = (60000 / _tempo).round();
 
     _vibrationTimer?.cancel();
-    _vibrationTimer = Timer.periodic(Duration(milliseconds: interval), (timer) {
-      Vibration.vibrate(duration: 50);
+    _vibrationTimer =
+        Timer.periodic(Duration(milliseconds: millisecondsPerBeat), (timer) {
+      Vibration.vibrate(duration: 10);
     });
   }
 
